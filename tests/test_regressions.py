@@ -1,6 +1,7 @@
 """Offline regression tests: no Steam changes, cloud access, or real downloads."""
 import asyncio
 import importlib.util
+import json
 import logging
 import os
 from pathlib import Path
@@ -22,6 +23,68 @@ import installed_games
 
 
 class BackendTests(unittest.IsolatedAsyncioTestCase):
+    async def test_settings_defaults_without_saved_file(self):
+        with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ, {'HOME': temp}), patch.object(plugin, '_state_dir', return_value=temp):
+            result = await self.p.get_settings()
+            self.assertEqual(result['status'], 'success')
+            settings = result['data']
+            self.assertEqual(settings['install_path'], str(Path(temp) / 'FreedeckGames'))
+            self.assertEqual(settings['download_path'], str(Path(temp) / 'FreedeckGames/freedeckInstall'))
+            self.assertTrue(settings['show_playtime_widget'])
+            self.assertTrue(settings['emulator_crt_enabled'])
+            self.assertEqual(self.p._load_settings_dict(), settings)
+            self.assertEqual(self.p._install_base(), settings['install_path'])
+
+    async def test_saved_settings_are_merged_and_legacy_paths_migrate(self):
+        with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ, {'HOME': temp}), patch.object(plugin, '_state_dir', return_value=temp):
+            path = Path(temp) / 'settings.json'
+            saved = {'install_path': temp, 'download_path': str(Path(temp) / 'Downloads'), 'show_playtime_widget': False, 'future_setting': 'preserve'}
+            path.write_text(json.dumps(saved))
+            merged = self.p._load_settings_dict()
+            self.assertEqual(merged['install_path'], temp)
+            self.assertEqual(merged['download_path'], str(Path(temp) / 'Downloads'))
+            self.assertFalse(merged['show_playtime_widget'])
+            self.assertEqual(merged['future_setting'], 'preserve')
+            self.assertIn('cloud_save_auto_upload', merged)
+            result = await self.p.get_settings()
+            self.assertEqual(result['status'], 'success')
+            self.assertEqual(result['data']['install_path'], str(Path(temp) / 'FreedeckGames'))
+            self.assertEqual(json.loads(path.read_text()), result['data'])
+            path.write_text('{broken')
+            result = await self.p.get_settings()
+            self.assertEqual(result['status'], 'success')
+            self.assertEqual(self.p._load_settings_dict(), result['data'])
+            self.assertEqual(path.read_text(), '{broken')
+
+    async def test_settings_roundtrip_preserves_custom_paths_and_unknown_keys(self):
+        with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ, {'HOME': temp}), patch.object(plugin, '_state_dir', return_value=temp):
+            path = Path(temp) / 'settings.json'
+            saved = {'install_path': str(Path(temp) / 'custom-games'), 'download_path': str(Path(temp) / 'downloads'), 'show_playtime_widget': False, 'future_setting': 'preserve'}
+            path.write_text(json.dumps(saved))
+            result = await self.p.get_settings()
+            self.assertEqual(result['status'], 'success')
+            for key, value in saved.items():
+                self.assertEqual(result['data'][key], value)
+            self.assertIn('cloud_save_auto_upload', result['data'])
+            result = await self.p.set_settings({'emulator_crt_enabled': False})
+            self.assertEqual(result['status'], 'success', result)
+            self.assertFalse(result['data']['emulator_crt_enabled'])
+            for key, value in saved.items():
+                self.assertEqual(result['data'][key], value)
+            self.assertEqual((await self.p.get_settings())['data'], result['data'])
+            self.assertEqual(json.loads(path.read_text()), result['data'])
+
+    async def test_real_library_dashboard_reads_default_and_saved_settings(self):
+        with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ, {'HOME': temp}), patch.object(plugin, '_state_dir', return_value=temp), patch.object(installed_games, 'is_migrated', return_value=True), patch.object(installed_games, 'load_installed_games', return_value=[]):
+            result = await self.p.library_dashboard()
+            self.assertEqual(result['status'], 'success', result)
+            self.assertEqual(result['data']['games'], [])
+            self.assertTrue(result['data']['show_playtime'])
+            (Path(temp) / 'settings.json').write_text(json.dumps({'show_playtime_widget': False}))
+            result = await self.p.library_dashboard()
+            self.assertEqual(result['status'], 'success', result)
+            self.assertFalse(result['data']['show_playtime'])
+
     async def test_missing_cover_key_skips_network(self):
         with patch.object(plugin, 'SGDB_API_KEY', ''), patch('aiohttp.ClientSession') as session:
             self.assertIsNone(await plugin.Plugin()._sgdb_search('Example'))

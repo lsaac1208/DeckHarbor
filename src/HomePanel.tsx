@@ -35,7 +35,7 @@ export default function HomePanel() {
         {!queue.length && <p className="nfd-muted">没有进行中的下载。</p>}
       </> },
       { id: "library", title: "我的游戏", content: <LibraryDashboard compact /> },
-      { id: "about", title: "关于", content: <Section title="DeckHarbor"><p>掌机港 · Steam Deck 游戏库与模拟器管理</p><p className="nfd-muted">社区升级版 · 0.4.3</p><p className="nfd-muted">基于 NewFreedeck 升级开发的 Steam Deck 游戏库与模拟器管理插件。</p><p className="nfd-muted">改进 Decky 原生界面、目录加载、游戏来源与模拟器管理。</p><p className="nfd-muted">管理本地游戏、关联模拟器、导入 ROM，并通过 Steam 启动。</p><ActionButton onClick={() => navigate(SETTINGS_ROUTE)}>打开设置</ActionButton></Section> },
+      { id: "about", title: "关于", content: <Section title="DeckHarbor"><p>掌机港 · Steam Deck 游戏库与模拟器管理</p><p className="nfd-muted">社区升级版 · 0.4.4</p><p className="nfd-muted">基于 NewFreedeck 升级开发的 Steam Deck 游戏库与模拟器管理插件。</p><p className="nfd-muted">改进 Decky 原生界面、目录加载、游戏来源与模拟器管理。</p><p className="nfd-muted">管理本地游戏、关联模拟器、导入 ROM，并通过 Steam 启动。</p><ActionButton onClick={() => navigate(SETTINGS_ROUTE)}>打开设置</ActionButton></Section> },
     ]} />
   </div>;
 }

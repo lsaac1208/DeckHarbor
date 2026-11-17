@@ -1,5 +1,7 @@
 # 变更记录
 
+- [0.4.4 · 设置与我的游戏后端修复](CHANGELOG-0.4.4.md)
+
 - [0.4.3 · DeckHarbor 更名与来源说明](CHANGELOG-0.4.3.md)
 - [0.4.2 · 目录提速、Switch 别名与公开游戏来源](CHANGELOG-0.4.2.md)
 - [0.4.1 · Decky 原生布局](CHANGELOG-0.4.1.md)

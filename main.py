@@ -3866,6 +3866,33 @@ class Plugin(LibraryFeatures, CatalogFeatures):
     async def emu_manager_bootstrap(self, payload=None, platform: str = ""):
         return await self.emulator_configure(payload or {"platform": platform})
 
+    @staticmethod
+    def _default_settings():
+        home = os.path.expanduser("~")
+        dl = os.path.join(home, "FreedeckGames", "freedeckInstall")
+        inst = os.path.join(home, "FreedeckGames")
+        # 确保默认目录存在
+        for d in (dl, inst):
+            try: os.makedirs(d, exist_ok=True)
+            except Exception: pass
+        return {
+            "download_path": dl,
+            "install_path": inst,
+            "auto_delete_after_install": False,
+            "auto_suspend_on_download": False,
+            "fast_mode": True,
+            "force_ipv4": False,
+            "auto_switch_line": True,
+            "split_count": 4,
+            "show_playtime_widget": True,
+            "show_freedeck_library_entry": True,
+            "screen_off_auto_suspend": False,
+            "cloud_save_auto_upload": True,
+            "cloud_save_provider": "",
+            "emulator_crt_enabled": True,
+            "lsfg_enabled": True,
+        }
+
     def _load_settings_dict(self) -> dict:
         """加载当前设置（合并默认值）。"""
         import json as _json, copy as _copy
