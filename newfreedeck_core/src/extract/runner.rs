@@ -403,8 +403,9 @@ fn parse_slt_output(output: &str) -> Result<Vec<ListEntry>, String> {
 
     for line in output.lines() {
         let trimmed = line.trim();
-        if trimmed.is_empty() {
-            // 空行 = 条目分隔
+        let separator = trimmed.len() >= 2 && trimmed.bytes().all(|byte| byte == b'-');
+        if trimmed.is_empty() || separator {
+            // Both blank lines and dashed separators end the current entry.
             if !current_path.is_empty() {
                 entries.push(ListEntry {
                     path: std::mem::take(&mut current_path),
@@ -588,5 +589,18 @@ Modified = 2024-01-01
         assert!(!entries[0].is_directory);
         assert_eq!(entries[1].path, "subdir");
         assert!(entries[1].is_directory);
+    }
+
+    #[test]
+    fn test_parse_slt_mixed_separators_and_no_final_newline() {
+        let input = "Path = first.bin\r\nSize = 10\r\nCompressed Size = 5\r\nModified = yesterday\r\n\r\n----------\r\nPath = folder\r\nFolder = +\r\n--\r\n\r\nPath = empty.bin\r\nSize = 0";
+        let entries = parse_slt_output(input).unwrap();
+        assert_eq!(entries.len(), 3);
+        assert_eq!(entries[0].compressed_size, 5);
+        assert!(entries[1].is_directory);
+        assert_eq!(entries[1].size, 0);
+        assert!(entries[1].modified.is_empty());
+        assert_eq!(entries[2].path, "empty.bin");
+        assert!(!entries[2].is_directory);
     }
 }
