@@ -1,0 +1,30 @@
+name: 问题反馈
+description: 报告可重现的插件问题
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: 请先查看常见问题；日志和截图必须脱敏，勿上传账号、Cookie、Token、ROM 或整个设置目录。
+  - type: input
+    id: versions
+    attributes:
+      label: 版本与环境
+      description: SteamOS、Steam、Decky、插件版本，以及桌面或游戏模式
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 重现步骤
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: 预期与实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 脱敏日志或截图

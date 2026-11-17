@@ -1,0 +1,288 @@
+{
+  "layout": {
+    "environment": "Steam native DFL controls + isolated backend fixtures; desktop hidden renderer, not physical gamepad validation",
+    "checks": [
+      {
+        "name": "library 1280x800",
+        "errors": []
+      },
+      {
+        "name": "settings 1280x800",
+        "errors": []
+      },
+      {
+        "name": "settings/基础 1280",
+        "errors": []
+      },
+      {
+        "name": "settings/运行 1280",
+        "errors": []
+      },
+      {
+        "name": "settings/模拟器 1280",
+        "errors": []
+      },
+      {
+        "name": "settings/账号 1280",
+        "errors": []
+      },
+      {
+        "name": "settings/云存档 1280",
+        "errors": []
+      },
+      {
+        "name": "settings/日志 1280",
+        "errors": []
+      },
+      {
+        "name": "emulator 1280x800",
+        "errors": []
+      },
+      {
+        "name": "discover 1280x800",
+        "errors": []
+      },
+      {
+        "name": "discover/我的游戏 1280",
+        "errors": []
+      },
+      {
+        "name": "discover/发现 1280",
+        "errors": []
+      },
+      {
+        "name": "discover/PC游戏 1280",
+        "errors": []
+      },
+      {
+        "name": "discover/模拟器游戏 1280",
+        "errors": []
+      },
+      {
+        "name": "discover/搜索 1280",
+        "errors": []
+      },
+      {
+        "name": "discover/资源池 1280",
+        "errors": []
+      },
+      {
+        "name": "discover/稍后再玩 1280",
+        "errors": []
+      },
+      {
+        "name": "login 1280x800",
+        "errors": []
+      },
+      {
+        "name": "library 1280x720",
+        "errors": []
+      },
+      {
+        "name": "settings 1280x720",
+        "errors": []
+      },
+      {
+        "name": "settings/基础 1280",
+        "errors": []
+      },
+      {
+        "name": "settings/运行 1280",
+        "errors": []
+      },
+      {
+        "name": "settings/模拟器 1280",
+        "errors": []
+      },
+      {
+        "name": "settings/账号 1280",
+        "errors": []
+      },
+      {
+        "name": "settings/云存档 1280",
+        "errors": []
+      },
+      {
+        "name": "settings/日志 1280",
+        "errors": []
+      },
+      {
+        "name": "emulator 1280x720",
+        "errors": []
+      },
+      {
+        "name": "discover 1280x720",
+        "errors": []
+      },
+      {
+        "name": "discover/我的游戏 1280",
+        "errors": []
+      },
+      {
+        "name": "discover/发现 1280",
+        "errors": []
+      },
+      {
+        "name": "discover/PC游戏 1280",
+        "errors": []
+      },
+      {
+        "name": "discover/模拟器游戏 1280",
+        "errors": []
+      },
+      {
+        "name": "discover/搜索 1280",
+        "errors": []
+      },
+      {
+        "name": "discover/资源池 1280",
+        "errors": []
+      },
+      {
+        "name": "discover/稍后再玩 1280",
+        "errors": []
+      },
+      {
+        "name": "login 1280x720",
+        "errors": []
+      },
+      {
+        "name": "library 800x600",
+        "errors": []
+      },
+      {
+        "name": "settings 800x600",
+        "errors": []
+      },
+      {
+        "name": "settings/基础 800",
+        "errors": []
+      },
+      {
+        "name": "settings/运行 800",
+        "errors": []
+      },
+      {
+        "name": "settings/模拟器 800",
+        "errors": []
+      },
+      {
+        "name": "settings/账号 800",
+        "errors": []
+      },
+      {
+        "name": "settings/云存档 800",
+        "errors": []
+      },
+      {
+        "name": "settings/日志 800",
+        "errors": []
+      },
+      {
+        "name": "emulator 800x600",
+        "errors": []
+      },
+      {
+        "name": "discover 800x600",
+        "errors": []
+      },
+      {
+        "name": "discover/我的游戏 800",
+        "errors": []
+      },
+      {
+        "name": "discover/发现 800",
+        "errors": []
+      },
+      {
+        "name": "discover/PC游戏 800",
+        "errors": []
+      },
+      {
+        "name": "discover/模拟器游戏 800",
+        "errors": []
+      },
+      {
+        "name": "discover/搜索 800",
+        "errors": []
+      },
+      {
+        "name": "discover/资源池 800",
+        "errors": []
+      },
+      {
+        "name": "discover/稍后再玩 800",
+        "errors": []
+      },
+      {
+        "name": "login 800x600",
+        "errors": []
+      },
+      {
+        "name": "QAM downloads 300",
+        "errors": []
+      },
+      {
+        "name": "QAM expanded downloads 300",
+        "errors": []
+      },
+      {
+        "name": "QAM/首页 300",
+        "errors": []
+      },
+      {
+        "name": "QAM/我的游戏 300",
+        "errors": []
+      },
+      {
+        "name": "QAM/关于 300",
+        "errors": []
+      },
+      {
+        "name": "QAM downloads 360",
+        "errors": []
+      },
+      {
+        "name": "QAM expanded downloads 360",
+        "errors": []
+      },
+      {
+        "name": "QAM/首页 360",
+        "errors": []
+      },
+      {
+        "name": "QAM/我的游戏 360",
+        "errors": []
+      },
+      {
+        "name": "QAM/关于 360",
+        "errors": []
+      },
+      {
+        "name": "settings failure is recoverable",
+        "errors": []
+      },
+      {
+        "name": "settings retry succeeds",
+        "errors": []
+      }
+    ]
+  },
+  "input": {
+    "environment": "Synthetic Steam gamepad events, not physical controller input",
+    "checks": [
+      {
+        "name": "R1 from content switches tab",
+        "pass": true
+      },
+      {
+        "name": "L1 returns to home tab",
+        "pass": true
+      },
+      {
+        "name": "B navigates back",
+        "pass": true
+      }
+    ]
+  }
+}

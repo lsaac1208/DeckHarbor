@@ -1,0 +1,4 @@
+# Development dependencies; Decky supplies its own plugin runtime.
+aiohttp>=3.10,<4
+certifi>=2024.7.4
+PyYAML>=6,<7

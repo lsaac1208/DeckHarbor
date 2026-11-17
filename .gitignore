@@ -1,0 +1,27 @@
+node_modules/
+dist/
+__pycache__/
+*.pyc
+.vscode/
+defaults/emulators/
+
+# Local state, credentials and build products
+.env
+.env.*
+!.env.example
+*.log
+*.zip
+*.zip.sha256
+*.so
+*.so.*
+newfreedeck_core/target/
+newfreedeck_core/.cargo/config.toml
+defaults/bin/aria2c
+defaults/bin/7zz
+defaults/ludusavi_manifest.json
+defaults/ludusavi_manifest.yaml
+~/
+.DS_Store
+.pytest_cache/
+docs/screenshots/*.html
+.venv/
