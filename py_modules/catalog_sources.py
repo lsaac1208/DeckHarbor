@@ -121,7 +121,7 @@ class CatalogSources:
         import aiohttp
         async with self.network_limit:
             timeout = aiohttp.ClientTimeout(total=7, connect=3)
-            async with aiohttp.ClientSession(timeout=timeout, headers={'User-Agent': 'DeckHarbor/0.4.4'}) as session:
+            async with aiohttp.ClientSession(timeout=timeout, headers={'User-Agent': 'DeckHarbor/0.4.5'}) as session:
                 async with session.get(url) as response:
                     response.raise_for_status()
                     chunks = bytearray()

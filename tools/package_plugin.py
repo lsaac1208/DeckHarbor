@@ -14,7 +14,7 @@ missing = [name for name in required if not (root / name).is_file()]
 if missing:
     raise SystemExit('Missing runtime files: ' + ', '.join(missing) + '. See docs/DEVELOPMENT.md')
 output = Path(sys.argv[1]) if len(sys.argv) > 1 else root.parent / f"{plugin_name}.v.{version}.zip"
-entries = [root / name for name in ('main.py', 'plugin.json', 'package.json', 'CHANGELOG-0.3.1.md', 'CHANGELOG-0.4.0.md', 'CHANGELOG-0.4.1.md', 'CHANGELOG-0.4.2.md', 'CHANGELOG-0.4.3.md', 'CHANGELOG-0.4.4.md', 'README.md', 'docs/catalog-sources.md')]
+entries = [root / name for name in ('main.py', 'plugin.json', 'package.json', 'CHANGELOG-0.3.1.md', 'CHANGELOG-0.4.0.md', 'CHANGELOG-0.4.1.md', 'CHANGELOG-0.4.2.md', 'CHANGELOG-0.4.3.md', 'CHANGELOG-0.4.4.md', 'CHANGELOG-0.4.5.md', 'README.md', 'docs/catalog-sources.md')]
 entries.extend(root / name for name in ('LICENSE.md', 'THIRD_PARTY_NOTICES.md', 'docs/INSTALL.md', 'docs/DEVELOPMENT.md'))
 for directory in ('dist', 'defaults', 'py_modules'):
     entries.extend(p for p in (root / directory).rglob('*') if p.is_file()

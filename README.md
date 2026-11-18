@@ -2,7 +2,7 @@
 
 **在 SteamOS 中管理游戏库、发现游戏与配置模拟器的 Decky 插件。**
 
-基于 **NewFreedeck v0.3** 升级开发，当前版本 **0.4.4**。这是独立的二次开发版本，不是原项目、Valve 或 Decky 的官方发行版。
+基于 **NewFreedeck v0.3** 升级开发，当前版本 **0.4.5**。这是独立的二次开发版本，不是原项目、Valve 或 Decky 的官方发行版。
 
 ![DeckHarbor 发现页面](docs/screenshots/discover.png)
 

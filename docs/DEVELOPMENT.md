@@ -31,7 +31,7 @@ python3 -m unittest discover -s tests -v
 完成运行依赖和前端构建后：
 
 ```sh
-python3 tools/package_plugin.py /tmp/DeckHarbor.v.0.4.4.zip
+python3 tools/package_plugin.py /tmp/DeckHarbor.v.0.4.5.zip
 ```
 
 脚本校验运行依赖、ZIP CRC 和逐文件内容，并生成 SHA-256 文件。插件包与源码包不同；外发二进制前还需完成第三方分发许可及相应源码准备。本仓库首次公开不上传旧本机 ZIP。
