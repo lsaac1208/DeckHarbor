@@ -1,0 +1,61 @@
+{
+  "environment": "Steam native controls with fixture RPC; confirm callback invoked directly; not physical gamepad",
+  "checks": [
+    {
+      "name": "click: rendered",
+      "pass": true
+    },
+    {
+      "name": "click starts exactly one download",
+      "pass": true
+    },
+    {
+      "name": "selected file is sent",
+      "pass": true
+    },
+    {
+      "name": "success closes details",
+      "pass": true
+    },
+    {
+      "name": "gamepad: rendered",
+      "pass": true
+    },
+    {
+      "name": "gamepad confirm callback is bound",
+      "pass": true
+    },
+    {
+      "name": "confirm callback plus click starts exactly one download",
+      "pass": true
+    },
+    {
+      "name": "failure: rendered",
+      "pass": true
+    },
+    {
+      "name": "failure stays visible and allows retry",
+      "pass": true
+    },
+    {
+      "name": "retry creates one task",
+      "pass": true
+    },
+    {
+      "name": "cancel: rendered",
+      "pass": true
+    },
+    {
+      "name": "cancel works without a download",
+      "pass": true
+    },
+    {
+      "name": "more: rendered",
+      "pass": true
+    },
+    {
+      "name": "more opens its menu",
+      "pass": true
+    }
+  ]
+}

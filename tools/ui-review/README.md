@@ -25,3 +25,5 @@ node tools/ui-review/export-docs.mjs /tmp/deckharbor-doc-preview
 ```
 
 Render the exported HTML in an isolated Chromium profile with the viewport sizes from pages.json. These are DOM snapshots re-rendered outside Steam, not game-mode captures. The preview adapter replaces navigation/backend actions and renders react-icons with a generic placeholder. Never commit exported Steam CSS/HTML or a personal browser profile. Only the final PNGs and this explanation belong in documentation.
+
+`check-install.js` checks cloud-game install/cancel/more clicks against fixture RPC, duplicate submissions, errors and retries. It invokes the bound gamepad callback directly because this isolated desktop tree does not reproduce physical controller dispatch. It never downloads files.

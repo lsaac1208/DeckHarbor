@@ -92,6 +92,7 @@ function CloudInstallOverlay({ game, sourceRect, onClose, onStartDownload }: Ins
   const [downloading, setDownloading] = useState(false);
   const [downloadTask, setDownloadTask] = useState<DownloadTask | null>(null);
   const [downloadError, setDownloadError] = useState("");
+  const installInFlight = useRef(false);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const installBtnRef = useRef<any>(null);
@@ -254,6 +255,7 @@ function CloudInstallOverlay({ game, sourceRect, onClose, onStartDownload }: Ins
   }, [onClose]);
 
   const handleInstall = useCallback(async () => {
+    if (installInFlight.current || closingRef.current) return;
     // variant 可能缺少 down_url/pwd，从 primary game 兜底
     const shareUrl = activeGame.down_url || game.down_url;
     const fileName = activeGame.file_name || game.file_name || activeGame.title || game.title || "unknown";
@@ -262,12 +264,14 @@ function CloudInstallOverlay({ game, sourceRect, onClose, onStartDownload }: Ins
     const pwd = activeGame.pwd || game.pwd || "";
 
     if (!shareUrl) {
+      setDownloadError("缺少下载链接");
       toaster.toast({ title: "安装失败", body: "缺少下载链接", duration: 3000 });
       return;
     }
+    installInFlight.current = true;
     setDownloading(true);
     setDownloadError("");
-    toaster.toast({ title: "开始下载", body: title, duration: 2000 });
+    toaster.toast({ title: "准备下载", body: title, duration: 2000 });
     try {
       const r = await downloadStart({
         share_url: shareUrl,
@@ -292,8 +296,10 @@ function CloudInstallOverlay({ game, sourceRect, onClose, onStartDownload }: Ins
       setDownloadError(err);
       setDownloading(false);
       toaster.toast({ title: "错误", body: err, duration: 4000 });
+    } finally {
+      installInFlight.current = false;
     }
-  }, [activeGame, title, coverUrl, onStartDownload]);
+  }, [activeGame, game, title, coverUrl, onStartDownload, handleClose]);
 
   // ── 稍后再玩：快照 + 切换 ──
   const buildPlayLaterSnapshot = useCallback((): Partial<PlayLaterItem> => {
@@ -483,18 +489,20 @@ function CloudInstallOverlay({ game, sourceRect, onClose, onStartDownload }: Ins
           <div style={{ flex: 1 }}>
             <DialogButtonPrimary
               ref={installBtnRef}
+              onClick={handleInstall}
               onOKButton={handleInstall}
               onCancelButton={handleClose}
               onGamepadDirection={onInstallNav}
               disabled={downloading}
               style={{ width: "100%" }}
             >
-              {downloading ? "下载中..." : installDiscCount > 1 ? `安装全部 ${installDiscCount} 盘` : "安装"}
+              {downloading ? "正在准备下载…" : installDiscCount > 1 ? `安装全部 ${installDiscCount} 盘` : "安装"}
             </DialogButtonPrimary>
           </div>
           <div style={{ flex: 1 }}>
             <DialogButton
               ref={cancelBtnRef}
+              onClick={() => handleClose()}
               onOKButton={handleClose}
               onCancelButton={handleClose}
               onGamepadDirection={onCancelNav}
@@ -506,6 +514,7 @@ function CloudInstallOverlay({ game, sourceRect, onClose, onStartDownload }: Ins
           <div style={{ flex: "0 0 auto", width: 40 }}>
             <DialogButton
               ref={moreBtnRef}
+              onClick={handleMore}
               onOKButton={handleMore}
               onCancelButton={handleClose}
               onOKActionDescription="更多操作"
@@ -521,6 +530,9 @@ function CloudInstallOverlay({ game, sourceRect, onClose, onStartDownload }: Ins
           </div>
         </div>
 
+        {downloadError && (
+          <div role="alert" style={{ fontSize: 14, color: "#ff9e9e", marginTop: 12, overflowWrap: "anywhere" }}>{downloadError}</div>
+        )}
         {downloadTask && (
           <div style={{ marginTop: 16, padding: "12px 14px",
             background: "rgba(255,255,255,0.03)", borderRadius: 0,
@@ -549,9 +561,6 @@ function CloudInstallOverlay({ game, sourceRect, onClose, onStartDownload }: Ins
                 {downloadTask.total > 0 ? `${formatBytes(downloadTask.completed)} / ${formatBytes(downloadTask.total)}` : `${downloadTask.progress}%`}
               </span>
             </div>
-            {downloadError && (
-              <div style={{ fontSize: 11, color: "#c44", marginTop: 4 }}>{downloadError}</div>
-            )}
           </div>
         )}
       </div>

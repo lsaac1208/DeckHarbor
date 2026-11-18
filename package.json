@@ -1,6 +1,6 @@
 {
   "name": "deckharbor",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "基于 NewFreedeck 升级开发的 Steam Deck 游戏库与模拟器管理插件。",
   "type": "module",
   "scripts": {
